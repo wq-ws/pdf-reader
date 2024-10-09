@@ -1,0 +1,46 @@
+{
+  "name": "pdf-reader",
+  "private": true,
+  "version": "0.0.0",
+  "main": "electron/main.js",
+  "build": {
+    "appId": "com.your-website.your-app",
+    "productName": "ElectronApp",
+    "copyright": "Copyright 2022 <your-name>",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist-electron"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "wait-on tcp:5173 && cross-env NODE_ENV=development electron .",
+    "electron:serve": "concurrently -k \"npm run dev\" \"npm run electron\"",
+    "electron:build": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "vue": "^3.5.10"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "concurrently": "^9.0.1",
+    "electron": "^32.1.2",
+    "vite": "^5.4.8",
+    "wait-on": "^8.0.1",
+    "naive-ui": "^2.34.4",
+    "unplugin-vue-components": "^0.25.2"
+  }
+}
