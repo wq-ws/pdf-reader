@@ -11,11 +11,16 @@
       "category": "public.app-category.utilities"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "sign": null,
+      "icon": "./src/assets/photo.ico"
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "JJ赛"
     },
     "files": [
       "dist/**/*",
@@ -41,6 +46,8 @@
     "@vitejs/plugin-vue": "^5.1.4",
     "concurrently": "^9.0.1",
     "electron": "^32.1.2",
+    "electron-builder": "22.14.13",
+    "cross-env": "^7.0.3",
     "vite": "^5.4.8",
     "wait-on": "^8.0.1",
     "naive-ui": "^2.34.4",
