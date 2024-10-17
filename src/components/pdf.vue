@@ -7,10 +7,10 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build
 let pageCount = 0
 const tmpArr: any[] = []
 const varIndex = [18, 80, 81, 87, 90, 91]
-const varIndex1 = [18, 80, 81, 88, 91, 92]
-const varIndex2 = [18, 81, 82, 89, 92, 93]
-const compareObj = ['客户追踪号', '型号', '物料编码', '品牌', '总价', '数量']
-const sortObj = ['品牌', '型号', '数量', '总价', '客户追踪号', '物料编码']
+const varIndex1 = [18, 80, 81, 87, 95, 98]
+const varIndex2 = [18, 80, 81, 88, 96, 99]
+const compareObj = ['客户追踪号', '型号', '物料编码', '品牌', '数量', '价格',]
+const sortObj = ['品牌', '型号', '数量', '价格', '客户追踪号', '物料编码']
 const pageCounts = [113, 114, 115]
 const emit = defineEmits(['update'])
 const loadPDF = async (file: Blob | MediaSource) => {
@@ -21,6 +21,7 @@ const loadPDF = async (file: Blob | MediaSource) => {
         for (let i = 1; i <= pageCount; i++) {
             const page = await pdf.getPage(i)
             const tmp = await page.getTextContent()
+            console.log(tmp.items);
             if (pageCounts.includes(tmp.items.length)) {
                 const obj = tmp.items
                     .filter((_: any, index: number) => {
@@ -29,6 +30,7 @@ const loadPDF = async (file: Blob | MediaSource) => {
                             (tmp.items.length === 114 && varIndex1.includes(index)) ||
                             (tmp.items.length === 115 && varIndex2.includes(index))
                         )
+
                     })
                     .reduce((acc: any, item: any, index: any) => {
                         acc[compareObj[index]] = index === 0 ? item.str.slice(12) : item.str
@@ -39,6 +41,7 @@ const loadPDF = async (file: Blob | MediaSource) => {
                 sortObj.forEach(item => {
                     tmpObj[item] = obj[item]
                 })
+                // const tmpObj = tmp.items.forEach(iem)
                 tmpArr.push(tmpObj)
             } else {
                 notification.error({
